@@ -141,5 +141,14 @@ theme.widget_up = awful.util.getdir("config") .. "/themes/default/tp/up.png"
 theme.widget_down = awful.util.getdir("config") .. "/themes/default/tp/down.png"
 -- }}}
 
+--MyIcons
+theme.mediaicon = "/home/arlekin147/.config/awesome/themes/default/tasklist/floating.png"
+theme.chaticon = "/usr/share/icons/hicolor/16x16/apps/telegram.png"
+theme.homeicon = "/usr/share/icons/visual-studio-code.png"
+theme.wineicon = "/usr/share/icons/Faenza-Darkest/actions/16/window-new.png"
+theme.officeicon = "/usr/share/icons/gnome/16x16/apps/openterm.png"
+theme.wwwicon = "/usr/share/icons/Papirus/16x16/apps/chrome.svg"
+--EndMyIcons
+
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80

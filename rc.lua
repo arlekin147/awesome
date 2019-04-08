@@ -106,25 +106,13 @@ end
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
+-- {{{ Tags
+-- Define a tag table which hold all screen tags.
 tags = {
- names  = { 
-         '✇:IDE',
-         '☭:Browser',
-         '☭:Terminal', 
-         '♨:IRC',
-         '⌥:Telegram',
-         '✣:Facepalm',
-           },
- layout = {
-      layouts[5],   -- 1:IDE
-      layouts[10],  -- 2:Web
-      layouts[10],  -- 3:Terminal
-      layouts[12],  -- 4:IRC
-      layouts[1],   -- 5:Social
-      layouts[2],   -- 6:Facepalm
-          }
-       }
-       for s = 1, screen.count() do
+    names = {"","","","","",""},
+    layout = {layouts[2], layouts[2], layouts[4], layouts[2], layouts[4], layouts[2]}
+    }
+    for s = 1, screen.count() do
         -- Each screen has its own tag table.
         tags[s] = awful.tag(tags.names, s, tags.layout)
         awful.tag.seticon(beautiful.homeicon, tags[s][1])
@@ -134,7 +122,8 @@ tags = {
         awful.tag.seticon(beautiful.wineicon, tags[s][5])
         awful.tag.seticon(beautiful.mediaicon, tags[s][6])
     end
--- }}}
+    -- }}}
+       
 
 -- Wallpaper Changer Based On 
 -- menu icon menu pdq 07-02-2012
