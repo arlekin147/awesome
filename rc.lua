@@ -109,10 +109,10 @@ end
 tags = {
  names  = { 
          '✇:IDE',
-         '☭:Web',
+         '☭:Browser',
          '☭:Terminal', 
          '♨:IRC',
-         '⌥:Social',
+         '⌥:Telegram',
          '✣:Facepalm',
            },
  layout = {
@@ -124,17 +124,23 @@ tags = {
       layouts[2],   -- 6:Facepalm
           }
        }
-  for s = 1, screen.count() do
- -- Each screen has its own tag table.
- tags[s] = awful.tag(tags.names, s, tags.layout)
- end
+       for s = 1, screen.count() do
+        -- Each screen has its own tag table.
+        tags[s] = awful.tag(tags.names, s, tags.layout)
+        awful.tag.seticon(beautiful.homeicon, tags[s][1])
+        awful.tag.seticon(beautiful.wwwicon, tags[s][2])    
+        awful.tag.seticon(beautiful.officeicon, tags[s][3])
+        awful.tag.seticon(beautiful.chaticon, tags[s][4])
+        awful.tag.seticon(beautiful.wineicon, tags[s][5])
+        awful.tag.seticon(beautiful.mediaicon, tags[s][6])
+    end
 -- }}}
 
 -- Wallpaper Changer Based On 
 -- menu icon menu pdq 07-02-2012
  local wallmenu = {}
  local function wall_load(wall)
- local f = io.popen('ln -sfn ' .. home_path .. '.config/awesome/wallpapers/' .. wall .. ' ' .. home_path .. '.config/awesome/themes/default/bg.png')
+ local f = io.popen('ln -sfn ' .. home_path .. '.config/awesome/wallpapers/' .. wall .. ' ' .. home_path .. '.config/awesome/themes/default/mybg.jpg')
  awesome.restart()
  end
  local function wall_menu()
@@ -332,7 +338,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal .. " -e fish") end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -449,7 +454,8 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+                     size_hints_honor = false } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
@@ -536,6 +542,9 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
+---The next is mine
+--xkbmap -layout "us,ru(typewriter)" -option "grp:shift_caps_switch"
+
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}
+-- }}}s
