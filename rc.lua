@@ -300,9 +300,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey }, "b", function ()
-        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-    end),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -366,13 +363,16 @@ clientkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+    ---awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end),
+    awful.key({ modkey,           }, "b", function () awful.util.spawn(terminal .. " -e google-chrome-stable") end),
+    awful.key({ modkey,           }, "t", function () awful.util.spawn(terminal .. " -e telegram-desktop") end),
+    awful.key({ modkey,           }, "c", function () awful.util.spawn(terminal .. " -e code") end),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
@@ -458,16 +458,16 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "Google-Chrome" },
+    { rule = { class = "Google-chrome" },
       properties = { tag = tags[1][2] } },
-    { rule = { class = "Vlc" },
-      properties = { tag = tags[1][6] } },
+    { rule = { class = "Code" },
+      properties = { tag = tags[1][1] } },
     { rule = { class = "VirtualBox" },
       properties = { tag = tags[1][5] } },
     { rule = { class = "Gns3" },
       properties = { tag = tags[1][5] } },
-    { rule = { class = "Bitcoin-qt" },
-      properties = { tag = tags[1][9] } },
+    { rule = { class = "TelegramDesktop" },
+      properties = { tag = tags[1][4] } },
     { rule = { class = "luakit" },
       properties = { tag = tags[1][2] } },
     -- Set Firefox to always map on tags number 2 of screen 1.
@@ -477,7 +477,9 @@ awful.rules.rules = {
 
 apptags =
 {
-["Google-Chrome"] = { screen = 1, tag = 2 }
+["Google-chrome"] = { screen = 1, tag = 2 },
+["TelegramDesktop"] = { screen = 1, tag = 4 },
+["Code"]= {screen = 1, tag = 1},
 }
 -- }}}
 
