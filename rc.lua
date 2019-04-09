@@ -33,7 +33,7 @@ require("cpu-widget.cpu-widget")
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
+                     title = "Ogo, there were errors during startup!",
                      text = awesome.startup_errors })
 end
 
@@ -300,7 +300,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+    awful.key({ }, "Print", function () awful.util.spawn("xfce4-screenshooter") end),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
@@ -370,11 +370,15 @@ clientkeys = gears.table.join(
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end),
-    awful.key({ modkey,           }, "b", function () awful.util.spawn(terminal .. " -e google-chrome-stable") end),
-    awful.key({ modkey,           }, "t", function () awful.util.spawn(terminal .. " -e telegram-desktop") end),
-    awful.key({ modkey,           }, "c", function () awful.util.spawn(terminal .. " -e code") end),
+    ---My shorcutes!
+    awful.key({ modkey,           }, "b", function () awful.util.spawn("google-chrome-stable") end),
+    awful.key({ modkey,           }, "t", function () awful.util.spawn("telegram-desktop") end),
+    awful.key({ modkey,           }, "c", function () awful.util.spawn("code") end),
+    awful.key({ modkey,           }, "g", function () awful.util.spawn("steam") end),
+    ---ALL!   
     awful.key({ modkey,           }, "m",
-        function (c)
+    
+    function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
         end)
@@ -462,10 +466,10 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] } },
     { rule = { class = "Code" },
       properties = { tag = tags[1][1] } },
-    { rule = { class = "VirtualBox" },
+    { rule = { class = "Steam" },
       properties = { tag = tags[1][5] } },
-    { rule = { class = "Gns3" },
-      properties = { tag = tags[1][5] } },
+    { rule = { class = "Xfce4-terminal" },
+      properties = { tag = tags[1][3] } },
     { rule = { class = "TelegramDesktop" },
       properties = { tag = tags[1][4] } },
     { rule = { class = "luakit" },
@@ -480,6 +484,8 @@ apptags =
 ["Google-chrome"] = { screen = 1, tag = 2 },
 ["TelegramDesktop"] = { screen = 1, tag = 4 },
 ["Code"]= {screen = 1, tag = 1},
+["Steam"]= {screen = 1, tag = 5},
+["Xfce4-terminal" ] = {screen = 1, tag = 3},
 }
 -- }}}
 
@@ -546,34 +552,31 @@ client.connect_signal("manage", function (c, startup)
 end)
 
 ---The next is mine
---xkbmap -layout "us,ru(typewriter)" -option "grp:shift_caps_switch"
+--xkbmap -layout "us,ru(typewriter)" -option "grp:shift_caps_switch"q
 
 autorun = true
  
 autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
    {
-   "Google-Chrome"
-   }
+   "google-chrome-stable",
+   "telegram-desktop",
+   "xfce4-terminal",
+   "xfce4-terminal"
+}
  
----runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
-  --- {
-   --- "dropbox start",
-    ---"bluetooth-applet",
-    ---"nm-applet",
-    ---"pidgin",
-    ---"gnome-settings-daemon",
-    ---"pasystray",
----}
+runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
+   {
+       "code"
+}
  
 if autorun then
    for app = 1, #autorunApps do
       awful.util.spawn(autorunApps[app])
    end
-   ---for app = 1, #runOnceApps do
-     --- utility.run_once(runOnceApps[app])
-   ---end
+   for app = 1, #runOnceApps do
+      ---utility.run_once(runOnceApps[app])
+   end
 end
-
 ---
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
