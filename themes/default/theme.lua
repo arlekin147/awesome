@@ -150,5 +150,7 @@ theme.officeicon = "/usr/share/icons/gnome/16x16/apps/openterm.png"
 theme.wwwicon = "/usr/share/icons/Papirus/16x16/apps/chrome.svg"
 --EndMyIcons
 
+theme.wallpaper = "/home/arlekin147/.config/awesome/themes/default/myBg.jpg" 
+
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
