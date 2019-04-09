@@ -1,3 +1,7 @@
+require("utility")
+
+
+
 --Configure home path so you dont have too
 home_path  = os.getenv('HOME') .. '/'
 
@@ -296,8 +300,11 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey }, "b", function ()
+        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    end),
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+    awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
@@ -315,7 +322,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "Tab",
+    awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.history.previous()
             if client.focus then
@@ -451,8 +458,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { class = "Chromium" },
-      properties = { tag = tags[1][3] } },
+    { rule = { class = "Google-Chrome" },
+      properties = { tag = tags[1][2] } },
     { rule = { class = "Vlc" },
       properties = { tag = tags[1][6] } },
     { rule = { class = "VirtualBox" },
@@ -466,6 +473,11 @@ awful.rules.rules = {
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
+}
+
+apptags =
+{
+["Google-Chrome"] = { screen = 1, tag = 2 }
 }
 -- }}}
 
@@ -533,6 +545,34 @@ end)
 
 ---The next is mine
 --xkbmap -layout "us,ru(typewriter)" -option "grp:shift_caps_switch"
+
+autorun = true
+ 
+autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
+   {
+   "Google-Chrome"
+   }
+ 
+---runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
+  --- {
+   --- "dropbox start",
+    ---"bluetooth-applet",
+    ---"nm-applet",
+    ---"pidgin",
+    ---"gnome-settings-daemon",
+    ---"pasystray",
+---}
+ 
+if autorun then
+   for app = 1, #autorunApps do
+      awful.util.spawn(autorunApps[app])
+   end
+   ---for app = 1, #runOnceApps do
+     --- utility.run_once(runOnceApps[app])
+   ---end
+end
+
+---
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
