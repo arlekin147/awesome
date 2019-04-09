@@ -222,6 +222,13 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+---???
+
+
+
+---???
+
+
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -558,16 +565,20 @@ autorun = true
  
 autorunApps = --Приложения, которым нужен перезапуск при перезапуске AwesomeWM
    {
-   "google-chrome-stable",
-   "telegram-desktop",
-   "xfce4-terminal",
-   "xfce4-terminal"
+   "xfce4-terminal -e fish",
+   "xfce4-terminal -e fish",
+   "code",
+    "telegram-desktop",
+    "google-chrome-stable"
 }
  
 runOnceApps = --Приложения, при перезапуске которых появляется нежелательная вторая копия
    {
-       "code"
-}
+       "code",
+       "telegram-desktop",
+      "google-chrome-stable",
+
+   }
  
 if autorun then
    for app = 1, #autorunApps do
