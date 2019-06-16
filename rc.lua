@@ -22,7 +22,7 @@ local menubar = require("menubar")
 --FreeDesktop
 require('freedesktop.utils')
 require('freedesktop.menu')
-freedesktop.utils.icon_theme = 'gnome'
+freedesktop.utils.icon_theme = 'xfce4'
 --Vicious + Widgets 
 vicious = require("vicious")
 local wi = require("wi")
@@ -90,7 +90,7 @@ naughty.config.defaults.position = "top_right"
 naughty.config.defaults.margin = 8
 naughty.config.defaults.gap = 1
 naughty.config.defaults.ontop = true
-naughty.config.defaults.font = "terminus 5"
+naughty.config.defaults.font = "terminus 7"
 naughty.config.defaults.icon = nil
 naughty.config.defaults.icon_size = 256
 naughty.config.defaults.fg = beautiful.fg_tooltip
@@ -114,7 +114,7 @@ end
 -- Define a tag table which hold all screen tags.
 tags = {
     names = {"","","","","",""},
-    layout = {layouts[2], layouts[2], layouts[4], layouts[2], layouts[4], layouts[2]}
+    layout = {layouts[2], layouts[2], layouts[2], layouts[2], layouts[2], layouts[2]}
     }
     for s = 1, screen.count() do
         -- Each screen has its own tag table.
@@ -346,7 +346,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ modkey,           }, "w",     function () awful.util.spawn("luakit")    end, "Start Luakit Web Browser"),
+    awful.key({ modkey,           }, "w",     function () awful.util.spawn("luakit")    end, "Google-chrome-stable"),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
@@ -493,6 +493,8 @@ apptags =
 ["Code"]= {screen = 1, tag = 1},
 ["Steam"]= {screen = 1, tag = 5},
 ["Xfce4-terminal" ] = {screen = 1, tag = 3},
+["Xfce4-terminal" ] = {screen = 1, tag = 3},
+["battle.net.exe"] =  {screen = 1, tag = 5}
 }
 -- }}}
 
@@ -577,6 +579,7 @@ runOnceApps = --Приложения, при перезапуске которы
        "code",
        "telegram-desktop",
       "google-chrome-stable",
+      "gxkb &",
 
    }
  
